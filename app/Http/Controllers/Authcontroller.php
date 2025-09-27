@@ -38,10 +38,10 @@ class Authcontroller extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-       
+
         if(!$user || !Hash::check($request->password, $user->password))
         {
-            return ['message' => 'Invalid credentials'];    
+            return ['message' => 'Invalid credentials'];
         }
 
         $token = $user->createToken($user->name);
@@ -57,7 +57,7 @@ class Authcontroller extends Controller
 
     public function logout(Request $request)
     {
-        
+
         $request->user()->tokens()->delete();
 
         return ['message' => 'Logged out successfully'];
